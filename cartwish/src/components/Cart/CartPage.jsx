@@ -2,6 +2,7 @@ import React from 'react'
 
 import './CartPage.css'
 import user from "../../assets/user.webp";
+import Table from '../Common/Table';
 
 
 const CartPage = () => {
