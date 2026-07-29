@@ -1,7 +1,7 @@
 import React from 'react'
 import './Table.css'
 
-const Table = ({ headings }) => {
+const Table = ({ headings , children}) => {
   return (
     <table className='common_table'>
      <thead>
@@ -9,6 +9,7 @@ const Table = ({ headings }) => {
         <th key={index}>{item}</th>
        ))}
      </thead>
+     {children}
     </table>
   )
 }

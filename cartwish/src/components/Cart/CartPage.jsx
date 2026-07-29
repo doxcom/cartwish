@@ -16,7 +16,18 @@ const CartPage = () => {
             </div>
         </div>
 
-        <Table headings={["Item","Price","Quantity","Total","Remove"]} />
+        <Table headings={["Item","Price","Quantity","Total","Remove"]}>
+          <tbody>
+            <tr>
+               <td>iPhone 14</td>
+               <td>$999</td>
+               <td>1</td>
+               <td>$999</td>
+               <td>Remove</td>
+            </tr>
+          </tbody>  
+        </Table>
+
 
         <table className="cart_bill">
             <tbody>
