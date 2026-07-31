@@ -1,40 +1,60 @@
 import { useForm } from "react-hook-form";
-import {z} from 'zod'
-import { zodResolver } from './../../../node_modules/@hookform/resolvers/zod/src/zod';
+import { z } from "zod";
+import { zodResolver } from "./../../../node_modules/@hookform/resolvers/zod/src/zod";
 import "./SignupPage.css";
 import user from "../../assets/user.webp";
+import { useState } from "react";
 
-const schema = z.object({
-    name: z.string().min(3,{message: "Name should be at least 3 characters."}),
-    email: z.string().email({message: "Please enter valid email."}),
-    password: z.string().min(8,{message: "Password must be at least 8 characters."}),
+const schema = z
+  .object({
+    name: z
+      .string()
+      .min(3, { message: "Name should be at least 3 characters." }),
+    email: z.string().email({ message: "Please enter valid email." }),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters." }),
     confirmPassword: z.string(),
-    deliveryAddress: z.string().min(15,{message: "Address must be at least 15 characters."})
-}).refine(data => data.password === data.confirmPassword, {
+    deliveryAddress: z
+      .string()
+      .min(15, { message: "Address must be at least 15 characters." }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Confirm Password does not match Password.",
-    path: ["confirmPassword"]
-})
-
+    path: ["confirmPassword"],
+  });
 
 const SignupPage = () => {
-  const { register, handleSubmit, formState:{errors} } = useForm({resolver: zodResolver(schema)});
+  const [profilePic, setProfilePic] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) });
 
-  const onSubmit = (formData) => console.log(formData)
+  const onSubmit = (formData) => console.log(formData);
 
   return (
     <section className="align_center form_page">
-      <form className="authentication_form signup_form" 
-            onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="authentication_form signup_form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2>SignUp Form</h2>
 
         <div className="image_input_section">
           <div className="image_preview">
-            <img src={user} id="file-ip-1-preview" />
+            <img src={profilePic ? URL.createObjectURL(profilePic):user} id="file-ip-1-preview" />
           </div>
           <label htmlFor="file-ip-1" className="image_label">
             Upload Image
           </label>
-          <input type="file" id="file-ip-1" className="image_input" />
+          <input
+            type="file"
+            onChange={(e) => setProfilePic(e.target.files[0])}
+            id="file-ip-1"
+            className="image_input"
+          />
         </div>
 
         {/* Form Inputs */}
@@ -48,7 +68,9 @@ const SignupPage = () => {
               placeholder="Enter your name"
               {...register("name")}
             />
-            {errors.name && <em className="form_error">{errors.name.message}</em>}
+            {errors.name && (
+              <em className="form_error">{errors.name.message}</em>
+            )}
           </div>
 
           <div>
@@ -60,7 +82,9 @@ const SignupPage = () => {
               placeholder="Enter your email address"
               {...register("email")}
             />
-            {errors.email && <em className="form_error">{errors.email.message}</em>}
+            {errors.email && (
+              <em className="form_error">{errors.email.message}</em>
+            )}
           </div>
 
           <div>
@@ -72,7 +96,9 @@ const SignupPage = () => {
               placeholder="Enter your password"
               {...register("password")}
             />
-            {errors.password && <em className="form_error">{errors.password.message}</em>}
+            {errors.password && (
+              <em className="form_error">{errors.password.message}</em>
+            )}
           </div>
 
           <div>
@@ -84,7 +110,9 @@ const SignupPage = () => {
               placeholder="Enter confirm password"
               {...register("confirmPassword")}
             />
-            {errors.confirmPassword && <em className="form_error">{errors.confirmPassword.message}</em>}
+            {errors.confirmPassword && (
+              <em className="form_error">{errors.confirmPassword.message}</em>
+            )}
           </div>
 
           <div className="signup_textares_section">
@@ -95,7 +123,9 @@ const SignupPage = () => {
               placeholder="Enter delivery address"
               {...register("deliveryAddress")}
             />
-            {errors.deliveryAddress && <em className="form_error">{errors.deliveryAddress.message}</em>}
+            {errors.deliveryAddress && (
+              <em className="form_error">{errors.deliveryAddress.message}</em>
+            )}
           </div>
         </div>
 
