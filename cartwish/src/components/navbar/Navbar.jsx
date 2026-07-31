@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { NavLink } from 'react-router-dom';
 import './Navbar.css'
 import rocket from '../../assets/rocket.png'
 import star from '../../assets/glowing-star.png'
@@ -27,9 +27,9 @@ const Navbar = () => {
             <LinkWithIcon title="My Orders" link="/myorders" emoji={order} />
              <LinkWithIcon title="Logout" link="/logout" emoji={lock} />
 
-             <a href='/cart' className='align_center'>
+             <NavLink to='/cart' className='align_center'>
                Cart <p className='align_center cart_counts'>0</p>
-             </a>
+             </NavLink>
        </div>
     </nav>
   )

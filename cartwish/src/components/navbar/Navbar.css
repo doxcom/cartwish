@@ -4,6 +4,10 @@
     background-color: #fff;
 }
 
+.navbar_links > a.active{
+   font-weight: 600;
+}
+
 .navbar_heading {
     margin-right: 20px;
     font-size: 32px;
