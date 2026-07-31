@@ -1,53 +1,58 @@
-import React, { useRef } from 'react'
-
-import './LoginPage.css'
+import React from "react";
+import "./LoginPage.css";
+import { z } from "zod"; //schema for form
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
   
-  const nameRef = useRef(null); 
-  const phoneRef = useRef(null); 
+  /*  const {
+    register,
+    handleSubmit2,
+    formState: { errors },
+  } = useForm();*/ 
+  //  const onSubmit = (formData) => console.log(formData)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
-        name: "",
-        phone: 0,
+      name: "",
+      phone: 0,
     };
-    user.name = nameRef.current.value;
-    user.phone = parseInt(phoneRef.current.value);
-  }
-    
+  };
+
   return (
     <section className="align_center form_page">
-        <form className='authentication_form' onSubmit={handleSubmit}>
-            <h2>Login Form</h2>
-            <div className="form_inputs">
-                <div>
-                    <label htmlFor='name'>Name</label>
-                    <input type="text"
-                           ref={nameRef}
-                           id="name" 
-                           className='form_text_input' placeholder='Enter your name'/>
-                </div>
+      <form className="authentication_form" onSubmit={handleSubmit}>
+        <h2>Login Form</h2>
+        <div className="form_inputs">
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              className="form_text_input"
+              placeholder="Enter your name"
+              //                       {...register("name")}
+            />
+          </div>
 
-                  <div>
-                    <label htmlFor='phone'>Phone Number</label>
-                    <input 
-                           type='number'
-                           ref={phoneRef}
-                           id="phone"
-                           className='form_text_input' placeholder='Enter your phone number'/>
-                </div>
-                
-
-
-                <button type="submit" className='search_button form_submit'>
-                    Submit
-                </button>
-            </div>
-        </form>
+          <div>
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="number"
+              id="phone"
+              className="form_text_input"
+              placeholder="Enter your phone number"
+              //   {...register("phone",{valueAsNumber: true})}
+            />
+          </div>
+          <button type="submit" className="search_button form_submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </section>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
