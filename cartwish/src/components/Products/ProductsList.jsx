@@ -5,29 +5,37 @@ import ProductCard  from "./ProductCard";
 import useData from '../../hooks/useData';
 import ProductCardSkeleton from './ProductCardSkeleton';
 import { useSearchParams } from 'react-router-dom';
+import Pagination from '../Common/Pagination';
 
-const ProducsList = () => {
+const ProductsList = () => {
 
   const [search, setSearch] = useSearchParams();
   const category = search.get("category")
   const page = search.get("page") 
-  const {data, error, isLoading} = useData("/products",{
+
+  const {data, error, isLoading} = useData(
+    "/products",
+    {
       params:{
           category,
           page,
       },
-  }, [category, page])
+    },
+   [category, page]
+  )
 
   const skeletons=[1,2,3,4,5,6,7,8]
+  
   const handlePageChange = page => {
-     const currentParams = Object.fromEntries([...search])
+     const currentParams = Object.fromEntries([...search]);
+
      setSearch({ ...currentParams, page: page});
   };
 
   return (
     <section className='products_list_section'>
         <header className="align_center products_list_header">
-            <h2>Products</h2>
+          <h2>Products</h2>
             <select name="sort" id="" className='products_sorting'>
                 <option value="">Relevance</option>
                 <option value="price desc">Price HIGH to LOW</option>
@@ -39,9 +47,9 @@ const ProducsList = () => {
 
         <div className="products_list">
           {error && <em className="form_error">{error}</em>}
-          {isLoading && skeletons.map(n => <ProductCardSkeleton  key={n} />)} 
+          {isLoading && skeletons.map(n => <ProductCardSkeleton key={n} />)} 
           {data?.products &&
-           data.products.map((product) => (
+             data.products.map((product) => (
             <ProductCard 
                 key={product._id} 
                 id={product._id} 
@@ -52,11 +60,18 @@ const ProducsList = () => {
                 ratingCounts={product.reviews.counts}
                 stock={product.stock}
                   />
-           ))} 
-           <button onClick={() => handlePageChange(2)}> Page 2</button>
-        </div>
+              ))} 
+           </div>
+       {/* Solo renderiza Pagination si data existe */}
+        {data && (
+          <Pagination 
+            totalPosts={data.totalProducts}
+            postsPerPage={8}
+            onClick={handlePageChange}
+          />
+        )}
     </section>    
-  )
-}
+  );
+};
 
-export default ProducsList
+export default ProductsList;

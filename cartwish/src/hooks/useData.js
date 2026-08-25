@@ -17,9 +17,7 @@ const useData = (endpoint, customConfig, deps) => {
           setError(err.message)
           setIsLoading(false)
          });
-  }, deps ? deps : []
-
- );
+  }, deps ? deps : []);
   
   return {data, error, isLoading};
 }
