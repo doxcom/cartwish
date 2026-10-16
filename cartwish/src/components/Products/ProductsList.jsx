@@ -47,8 +47,9 @@ const ProductsList = () => {
 
         <div className="products_list">
           {error && <em className="form_error">{error}</em>}
-          {isLoading && skeletons.map(n => <ProductCardSkeleton key={n} />)} 
-          {data?.products &&
+          {isLoading 
+          ? skeletons.map(n => <ProductCardSkeleton key={n} />) 
+          : data?.products &&
              data.products.map((product) => (
             <ProductCard 
                 key={product._id} 
@@ -68,6 +69,7 @@ const ProductsList = () => {
             totalPosts={data.totalProducts}
             postsPerPage={8}
             onClick={handlePageChange}
+            currentPage={page}
           />
         )}
     </section>    

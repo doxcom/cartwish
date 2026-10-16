@@ -1,0 +1,4 @@
+type npm run dev
+also check cartwishbackend project is up
+on localhost:5000/api/category
+type node index.js on that one

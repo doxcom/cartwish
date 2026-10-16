@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Pagination.css'
 
-const Pagination = ({totalPosts, postsPerPage, onClick}) =>{
+const Pagination = ({totalPosts, postsPerPage, onClick, currentPage}) =>{
     
     let pages = []
 
@@ -11,17 +11,22 @@ const Pagination = ({totalPosts, postsPerPage, onClick}) =>{
     }
 
     return (
-          <ul className='pagination'>
+        <>
+        {pages.length > 1 && <ul className='pagination'>
              {pages.map((page) => (
                    <li key={page}>
                       <button
-                          className='pagination_button'
+                          className={ parseInt(currentPage) === page
+                             ? 'pagination_button active' 
+                             : 'pagination_button'
+                            }
                           onClick={() => onClick(page)}>
                        {page}
                       </button>
                 </li>
             ))}
-      </ul>
+      </ul>}
+      </>
   );
 };
 
